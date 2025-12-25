@@ -1,0 +1,21 @@
+Hardware Required
+
+✅ Netgate 1100 (or compatible pfSense appliance)
+✅ TP-Link TL-SG108E managed switch (or 802.1Q compatible)
+✅ TP-Link EAP225 access point (or VLAN-capable AP)
+✅ Starlink dish with ethernet adapter (or WAN connection)
+✅ Ethernet cables (Cat5e/Cat6) - minimum 4 cables
+✅ Computer for initial configuration
+Knowledge Required
+
+Basic networking concepts (IP addressing, subnets)
+Understanding of VLANs and 802.1Q tagging
+Familiarity with web-based administration
+Basic command line skills (helpful but not required)
+Before You Begin
+
+ Download latest pfSense version (verify checksum)
+ Have credentials ready (you'll set admin password)
+ Plan your IP addressing scheme
+ Print network diagram and port mapping sheet
+ Clear workspace and label your cables
