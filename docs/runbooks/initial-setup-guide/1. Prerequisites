@@ -6,12 +6,16 @@ Hardware Required
 ✅ Starlink dish with ethernet adapter (or WAN connection)
 ✅ Ethernet cables (Cat5e/Cat6) - minimum 4 cables
 ✅ Computer for initial configuration
+
+
 Knowledge Required
 
 Basic networking concepts (IP addressing, subnets)
 Understanding of VLANs and 802.1Q tagging
 Familiarity with web-based administration
 Basic command line skills (helpful but not required)
+
+
 Before You Begin
 
  Download latest pfSense version (verify checksum)
