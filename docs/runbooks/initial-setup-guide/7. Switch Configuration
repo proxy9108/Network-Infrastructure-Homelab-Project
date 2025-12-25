@@ -1,0 +1,155 @@
+## Switch Configuration
+
+Now configure the managed switch for VLAN tagging.
+
+### Access Switch Web Interface
+
+**Step 1: Determine Switch IP**
+
+Default IP is usually: `192.168.0.1`
+
+**Temporary connection method:**
+1. Disconnect computer from Netgate
+2. Connect directly to switch
+3. Set static IP on computer:
+```
+   IP: 192.168.0.100
+   Subnet: 255.255.255.0
+   Gateway: 192.168.0.1
+```
+4. Browse to: `http://192.168.0.1`
+5. Login (default: admin/admin)
+
+**OR configure management VLAN (recommended):**
+1. Change switch management IP to VLAN 20: `192.168.20.10`
+2. Access via: `http://192.168.20.10`
+
+### Enable 802.1Q VLAN
+
+**Step 1: Enable VLAN Mode**
+
+Navigate to: **VLAN > 802.1Q VLAN**
+```
+☑ Enable 802.1Q VLAN: Checked
+```
+
+Click **Apply**
+
+### Create VLANs
+
+**Step 2: Create VLAN Entries**
+
+Navigate to: **VLAN > 802.1Q VLAN > VLAN Config**
+
+**Add VLAN 20 (HOME):**
+```
+VLAN ID: 20
+VLAN Name: HOME
+```
+Click **Add/Modify**
+
+**Add VLAN 30 (GUEST):**
+```
+VLAN ID: 30
+VLAN Name: GUEST
+```
+Click **Add/Modify**
+
+**Add VLAN 40 (INTERNAL):**
+```
+VLAN ID: 40
+VLAN Name: INTERNAL
+```
+Click **Add/Modify**
+
+**Add VLAN 50 (IOT):**
+```
+VLAN ID: 50
+VLAN Name: IOT
+```
+Click **Add/Modify**
+
+Click **Apply**
+
+### Configure Port Membership
+
+Navigate to: **VLAN > 802.1Q VLAN > Port Config**
+
+**Configure each port according to port mapping:**
+
+**Ports 1-3, 7 (Trunk Ports):**
+```
+For VLAN 20:
+  Port 1: Tagged
+  Port 2: Tagged
+  Port 3: Tagged
+  Port 7: Tagged
+
+For VLAN 30:
+  Port 1: Tagged
+  Port 2: Tagged
+  Port 3: Tagged
+  Port 7: Tagged
+
+For VLAN 40:
+  Port 1: Tagged
+  Port 2: Tagged
+  Port 3: Tagged
+  Port 7: Tagged
+
+For VLAN 50:
+  Port 1: Tagged
+  Port 2: Tagged
+  Port 3: Tagged
+  Port 7: Tagged
+```
+
+**Port 4-5 (Home Access):**
+```
+For VLAN 20:
+  Port 4: Untagged
+  Port 5: Untagged
+```
+
+**Port 6 (Internal Access):**
+```
+For VLAN 40:
+  Port 6: Untagged
+```
+
+**Port 8 (Pi-hole on Internal):**
+```
+For VLAN 40:
+  Port 8: Untagged
+```
+
+Click **Apply**
+
+### Configure PVID (Port VLAN ID)
+
+Navigate to: **VLAN > 802.1Q VLAN > Port PVID**
+```
+Port 1: PVID 1 (trunk - management)
+Port 2: PVID 1 (trunk - management)
+Port 3: PVID 1 (trunk - management)
+Port 4: PVID 20 (Home access)
+Port 5: PVID 20 (Home access)
+Port 6: PVID 40 (Internal access)
+Port 7: PVID 1 (trunk - management)
+Port 8: PVID 40 (Internal access - Pi-hole)
+```
+
+Click **Apply**
+
+### Save Switch Configuration
+
+Navigate to: **System Tools > Config File > Save Config**
+
+Click **Save Configuration to Flash**
+
+**IMPORTANT:** Export backup
+1. Navigate to: **System Tools > Backup & Restore**
+2. Click **Backup Configuration**
+3. Save file to safe location
+
+---
