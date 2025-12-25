@@ -1,0 +1,125 @@
+Testing & Validation
+Comprehensive testing to verify security boundaries.
+Connectivity Tests
+Test 1: VLAN 20 (Home) Connectivity
+From device on Home VLAN (192.168.20.x):
+bash# Test gateway
+ping 192.168.20.1
+# Should succeed
+
+# Test Internet
+ping 8.8.8.8
+# Should succeed
+
+# Test DNS
+nslookup google.com
+# Should resolve
+
+# Test Internal VLAN access
+ping 192.168.40.1
+# Should succeed
+
+# Test HTTPS to Internal (if service running)
+curl -k https://192.168.40.10
+# Should connect
+Test 2: VLAN 30 (Guest) Isolation
+From device on Guest VLAN (192.168.30.x):
+bash# Test Internet
+ping 8.8.8.8
+# Should succeed
+
+# Test DNS
+nslookup google.com
+# Should resolve
+
+# Attempt to access Home VLAN
+ping 192.168.20.1
+# Should FAIL (timeout or filtered)
+
+# Attempt to access Internal VLAN
+ping 192.168.40.1
+# Should FAIL (blocked by firewall)
+
+# Attempt to SSH to Internal
+ssh user@192.168.40.10
+# Should FAIL (connection refused or timeout)
+Expected Result: Guest devices have Internet only, no LAN access.
+Test 3: VLAN 40 (Internal) Security
+From device on Internal VLAN (192.168.40.x):
+bash# Test Internet access
+ping 8.8.8.8
+# Should succeed (for updates)
+
+# Test access FROM Home VLAN
+# From Home device:
+ssh user@192.168.40.10
+# Should succeed
+
+# Test access FROM Guest VLAN
+# From Guest device:
+ssh user@192.168.40.10
+# Should FAIL (blocked)
+Test 4: VLAN 50 (IoT) Isolation
+From device on IoT VLAN (192.168.50.x):
+bash# Test Internet
+ping 8.8.8.8
+# Should succeed
+
+# Attempt Internal access
+ping 192.168.40.1
+# Should FAIL
+
+# Attempt Home access
+ping 192.168.20.1
+# Should FAIL
+DNS Testing
+Verify Pi-hole Integration:
+bash# From any VLAN
+nslookup doubleclick.net
+# Should show blocked/NXDOMAIN if Pi-hole blocking
+
+# Check DNS server in use
+nslookup google.com
+# Server line should show Pi-hole (192.168.40.2)
+```
+
+### Firewall Log Review
+
+Navigate to: **Status > System Logs > Firewall**
+
+**Look for:**
+- ✅ Allowed connections from Home → Internal
+- ❌ Blocked attempts from Guest → RFC1918
+- ❌ Blocked attempts from IoT → RFC1918
+
+**Filter examples:**
+```
+Interface: GUEST
+Action: block
+Should show blocked RFC1918 attempts.
+DHCP Lease Verification
+Navigate to: Status > DHCP Leases
+Verify devices are getting IPs in correct ranges:
+
+Home devices: 192.168.20.100-199
+Guest devices: 192.168.30.100-199
+Internal devices: 192.168.40.100-199
+IoT devices: 192.168.50.100-199
+
+Performance Baseline
+Measure throughput:
+bash# From Home device to Internet
+speedtest-cli
+# or visit fast.com
+
+# Document baseline for future comparison
+```
+
+**Check resource usage:**
+
+Navigate to: **Status > Dashboard**
+- CPU usage should be <20% idle
+- Memory usage noted
+- Traffic graphs baseline
+
+---
