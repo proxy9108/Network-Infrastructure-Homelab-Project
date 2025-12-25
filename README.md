@@ -14,7 +14,7 @@ This repository documents a multi-VLAN network infrastructure designed with secu
 ## 🏗️ Architecture
 
 ### Network Topology
-![Network Topology](docs/diagrams/network-topology.png)
+![Network Topology] docs/Network map.png
 
 ### VLAN Structure
 | VLAN | Name | Purpose | Subnet | Security Zone |
