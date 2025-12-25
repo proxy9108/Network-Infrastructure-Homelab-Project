@@ -1,57 +1,66 @@
-Hardware Assembly
-File: docs/runbooks/initial-setup-guide/2. Hardware Assembly.md
+# Hardware Assembly
+---
+## Phase 1: Physical Connections
 
-Phase 1: Physical Connections
-Step 1: Connect WAN
+### Step 1: Connect WAN
+```
 Starlink Ethernet Adapter → Netgate 1100 WAN port (labeled "WAN")
+```
 
-Use the ethernet cable provided with Starlink adapter
-Ensure connection is secure
-WAN LED should illuminate when connected
+- Use the ethernet cable provided with Starlink adapter
+- Ensure connection is secure
+- WAN LED should illuminate when connected
 
-Step 2: Connect Management Computer
+### Step 2: Connect Management Computer
+```
 Computer → Netgate 1100 LAN port (any available port)
+```
 
-Use straight-through ethernet cable
-Computer should obtain IP via DHCP automatically
-Default pfSense LAN: 192.168.1.1/24
+- Use straight-through ethernet cable
+- Computer should obtain IP via DHCP automatically
+- Default pfSense LAN: `192.168.1.1/24`
 
-Step 3: Connect Managed Switch
+### Step 3: Connect Managed Switch
+```
 Netgate 1100 LAN port → TP-Link Switch Port 1
+```
 
-DO NOT configure VLANs on switch yet
-Leave switch in default configuration initially
-We'll configure after pfSense is ready
+- **DO NOT configure VLANs on switch yet**
+- Leave switch in default configuration initially
+- We'll configure after pfSense is ready
 
-Step 4: Verify Power
+### Step 4: Verify Power
+
 Power on devices in order:
 
-Starlink
-Netgate 1100
-Managed switch
-Management computer
+1. Starlink
+2. Netgate 1100
+3. Managed switch
+4. Management computer
 
+- Wait 2-3 minutes for boot completion
+- Netgate 1100 should show steady power LED
 
-Wait 2-3 minutes for boot completion
-Netgate 1100 should show steady power LED
+---
 
+## Cable Labeling (Recommended)
 
-Cable Labeling (Recommended)
 Use labels or colored tape:
 
-🔴 Red - WAN connections
-🔵 Blue - LAN/Trunk connections
-🟢 Green - Management connections
-🟡 Yellow - Access point connections
+- 🔴 **Red** - WAN connections
+- 🔵 **Blue** - LAN/Trunk connections
+- 🟢 **Green** - Management connections
+- 🟡 **Yellow** - Access point connections
 
+---
 
-Physical Layout Checklist
+## Physical Layout Checklist
 
- All ethernet cables seated firmly
- No cable stress or sharp bends
- Power cables secured and not crossing ethernet
- Devices have adequate ventilation
- Equipment accessible for LED visibility
+- [ ] All ethernet cables seated firmly
+- [ ] No cable stress or sharp bends
+- [ ] Power cables secured and not crossing ethernet
+- [ ] Devices have adequate ventilation
+- [ ] Equipment accessible for LED visibility
 
+---
 
-Previous: 1. Prerequisites | Next: 3. pfSense Initial Configuration
