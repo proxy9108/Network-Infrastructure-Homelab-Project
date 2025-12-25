@@ -1,0 +1,48 @@
+## Access Point Setup
+
+Configure wireless SSID to VLAN mappings.
+
+### Access TP-Link EAP225
+
+**Step 1: Adopt Access Point**
+
+Option A: Use TP-Link Omada Controller (recommended)
+Option B: Standalone mode via web interface
+
+**For standalone mode:**
+1. Connect AP to switch port 1 (trunk)
+2. AP will get DHCP from VLAN 20 (native untagged)
+3. Find IP via pfSense DHCP leases: **Status > DHCP Leases**
+4. Browse to AP IP address
+5. Login (default: admin/admin)
+
+### Configure SSIDs with VLAN Tags
+
+**SSID 1: Home_WiFi → VLAN 20**
+```
+Wireless > Basic Settings
+
+SSID: Home_WiFi
+VLAN: 20
+Security: WPA2-Personal/WPA3-Personal
+Password: [Strong password]
+Broadcast SSID: Enabled
+```
+
+**SSID 2: Guest_WiFi → VLAN 30**
+```
+SSID: Guest_WiFi
+VLAN: 30
+Security: WPA2-Personal
+Password: [Guest password]
+Broadcast SSID: Enabled
+Client Isolation: Enabled (recommended)
+```
+
+**SSID 3: IoT_WiFi → VLAN 50**
+```
+SSID: IoT_WiFi
+VLAN: 50
+Security: WPA2-Personal
+Password: [IoT password]
+Broadcast SSID: Disabled (hidden - optional)
