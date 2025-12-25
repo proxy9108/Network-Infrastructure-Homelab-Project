@@ -1,12 +1,23 @@
-pfSense Initial Configuration
-Accessing pfSense Web Interface
-Step 1: Obtain IP Address
+# pfSense Initial Configuration
+
+**File:** `docs/runbooks/initial-setup-guide/3. pfSense Initial Configuration.md`
+
+---
+
+## Accessing pfSense Web Interface
+
+### Step 1: Obtain IP Address
+
 Your computer should automatically receive:
+```
 IP Address: 192.168.1.x (via DHCP)
 Gateway: 192.168.1.1
 DNS: 192.168.1.1
+```
+
 Verify connection:
-bash# Windows
+```bash
+# Windows
 ipconfig
 
 # macOS/Linux
@@ -15,7 +26,7 @@ ip addr show
 ifconfig
 ```
 
-**Step 2: Open Web Interface**
+### Step 2: Open Web Interface
 
 1. Open web browser
 2. Navigate to: `https://192.168.1.1`
@@ -26,9 +37,11 @@ ifconfig
 
 ⚠️ **Security Note:** You MUST change the default password immediately.
 
-### Setup Wizard
+---
 
-**Step 1: General Information**
+## Setup Wizard
+
+### Step 1: General Information
 
 Click **Next** through welcome screen, then configure:
 ```
@@ -40,13 +53,13 @@ Secondary DNS: 1.0.0.1 (Cloudflare backup)
 ☑ Override DNS: Checked (important for client DNS control)
 ```
 
-**Step 2: Time Server Information**
+### Step 2: Time Server Information
 ```
 Time Server Hostname: pool.ntp.org
 Timezone: (Select your timezone)
 ```
 
-**Step 3: Configure WAN Interface**
+### Step 3: Configure WAN Interface
 ```
 ☑ Block RFC1918 Private Networks: Unchecked (Starlink uses CGNAT)
 ☑ Block bogon networks: Checked
@@ -58,7 +71,7 @@ IPv4 Configuration Type: DHCP
 IPv6 Configuration Type: None (or DHCP6 if your ISP supports it)
 ```
 
-**Step 4: Configure LAN Interface**
+### Step 4: Configure LAN Interface
 
 ⚠️ **IMPORTANT:** We'll change this later for VLAN architecture
 
@@ -70,22 +83,30 @@ Subnet Mask: 24
 
 > **Why 192.168.20.1?** We're using `.20.x` for VLAN 20 (Home) to maintain consistency.
 
-**Step 5: Set Admin Password**
+### Step 5: Set Admin Password
 ```
 Admin Password: [Strong password - use password manager]
 Confirm Password: [Repeat password]
-Password Requirements:
+```
 
-Minimum 12 characters
-Mix of upper/lower case, numbers, symbols
-Store securely in password manager
+**Password Requirements:**
+- Minimum 12 characters
+- Mix of upper/lower case, numbers, symbols
+- Store securely in password manager
 
-Step 6: Reload Configuration
-Click Reload and wait 30-60 seconds for pfSense to apply changes.
-Post-Wizard Configuration
-Step 1: Reconnect to New IP
+### Step 6: Reload Configuration
+
+Click **Reload** and wait 30-60 seconds for pfSense to apply changes.
+
+---
+
+## Post-Wizard Configuration
+
+### Step 1: Reconnect to New IP
+
 Your computer will need a new IP address:
-bash# Windows
+```bash
+# Windows
 ipconfig /release
 ipconfig /renew
 
@@ -94,13 +115,13 @@ sudo dhclient -r
 sudo dhclient
 ```
 
-**Step 2: Access New Interface**
+### Step 2: Access New Interface
 
 Navigate to: `https://192.168.20.1`
 
 Login with your new admin credentials.
 
-**Step 3: Update pfSense (Important)**
+### Step 3: Update pfSense (Important)
 ```
 1. System > Update
 2. Check for updates
@@ -109,21 +130,23 @@ Login with your new admin credentials.
 5. Re-login after reboot
 ```
 
-### Initial Security Hardening
+---
 
-**Disable SSH (unless needed):**
+## Initial Security Hardening
+
+### Disable SSH (unless needed)
 ```
 System > Advanced > Admin Access
 ☐ Enable Secure Shell (unchecked)
 ```
 
-**Configure Session Timeout:**
+### Configure Session Timeout
 ```
 System > Advanced > Admin Access
 Session Timeout: 30 (minutes)
 ```
 
-**Enable HTTPS Only:**
+### Enable HTTPS Only
 ```
 System > Advanced > Admin Access
 Protocol: HTTPS
@@ -131,3 +154,5 @@ Protocol: HTTPS
 ```
 
 ---
+
+**Previous:** [2. Hardware Assembly](2.%20Hardware%20Assembly.md) | **Next:** [4. VLAN Creation](4.%20VLAN%20Creation.md)
