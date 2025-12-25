@@ -1,0 +1,127 @@
+
+## DHCP Server Setup
+
+Configure DHCP for automatic IP assignment on each VLAN.
+
+### VLAN 20 - HOME
+
+Navigate to: **Services > DHCP Server > HOME**
+```
+☑ Enable DHCP server on HOME interface: Checked
+
+Address Pool:
+  Range: 192.168.20.100 to 192.168.20.199
+
+DNS Servers:
+  DNS Server 1: 192.168.40.2 (Pi-hole - configure after Pi-hole installation)
+  # OR use pfSense itself: 192.168.20.1
+
+Gateway: 192.168.20.1 (auto-filled)
+
+Domain name: local.lan
+
+Default lease time: 86400 (1 day)
+Maximum lease time: 604800 (7 days)
+
+Other DHCP Options (optional):
+  NTP Servers: 192.168.20.1
+```
+
+Click **Save**
+
+### VLAN 30 - GUEST
+
+Navigate to: **Services > DHCP Server > GUEST**
+```
+☑ Enable DHCP server on GUEST interface: Checked
+
+Address Pool:
+  Range: 192.168.30.100 to 192.168.30.199
+
+DNS Servers:
+  DNS Server 1: 192.168.40.2 (Pi-hole)
+  # OR: 192.168.30.1 (pfSense)
+
+Gateway: 192.168.30.1
+
+Domain name: guest.local
+
+Default lease time: 3600 (1 hour - shorter for guest devices)
+Maximum lease time: 86400 (1 day)
+```
+
+Click **Save**
+
+### VLAN 40 - INTERNAL
+
+Navigate to: **Services > DHCP Server > INTERNAL**
+```
+☑ Enable DHCP server on INTERNAL interface: Checked
+
+Address Pool:
+  Range: 192.168.40.100 to 192.168.40.199
+
+NOTE: Reserve .2-.99 for static server assignments
+
+DNS Servers:
+  DNS Server 1: 192.168.40.2 (Pi-hole - after installation)
+
+Gateway: 192.168.40.1
+
+Domain name: internal.local
+
+Default lease time: 86400 (1 day)
+Maximum lease time: 604800 (7 days)
+```
+
+Click **Save**
+
+### VLAN 50 - IOT
+
+Navigate to: **Services > DHCP Server > IOT**
+```
+☑ Enable DHCP server on IOT interface: Checked
+
+Address Pool:
+  Range: 192.168.50.100 to 192.168.50.199
+
+DNS Servers:
+  DNS Server 1: 192.168.40.2 (Pi-hole)
+  # OR: 192.168.50.1 (pfSense)
+
+Gateway: 192.168.50.1
+
+Domain name: iot.local
+
+Default lease time: 86400 (1 day)
+Maximum lease time: 2592000 (30 days - IoT devices rarely change)
+```
+
+Click **Save**
+
+### DHCP Static Mappings (Important Services)
+
+For critical infrastructure, use static DHCP reservations:
+
+**Pi-hole (on INTERNAL VLAN):**
+
+Navigate to: **Services > DHCP Server > INTERNAL** → Scroll to **DHCP Static Mappings**
+```
+Click + Add
+
+MAC Address: [Pi-hole device MAC address]
+IP Address: 192.168.40.2
+Hostname: pihole
+Description: Pi-hole DNS Server
+
+☑ ARP Table Static Entry: Checked
+```
+
+Click **Save**
+
+**Repeat for other critical services:**
+- Nextcloud: 192.168.40.10
+- Proxmox: 192.168.40.244
+- Other servers: 192.168.40.11+
+
+---
