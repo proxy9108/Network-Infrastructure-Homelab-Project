@@ -79,18 +79,18 @@ This repository documents a multi-VLAN network infrastructure designed with secu
 - Understanding of 802.1Q VLAN tagging
 
 ### Deployment Steps
-1. **Hardware Setup** - Connect devices according to [topology diagram](docs/diagrams/network-topology.png)
-2. **pfSense Configuration** - Follow [initial setup guide](docs/runbooks/initial-setup-guide.md)
-3. **VLAN Configuration** - Configure switch per [port mapping](configs/switch/port-mapping.md)
-4. **Firewall Rules** - Implement security policies from [firewall rules](configs/pfsense/firewall-rules.md)
+1. **Hardware Setup** - Connect devices according to [topology diagram](docs/runbooks/initial-setup-guide/2-Hardware-Assembly.md)
+2. **pfSense Configuration** - Follow [initial setup guide](docs/runbooks/initial-setup-guide/3-pfSense-Initial-Configuration.md)
+3. **VLAN Configuration** - Configure switch per [port mapping](docs/runbooks/initial-setup-guide/4-VLAN-Creation.md)
+4. **Firewall Rules** - Implement security policies from [firewall rules](docs/runbooks/initial-setup-guide/6-Firewall-Rules-Configuration.md)
 5. **Service Deployment** - Deploy Pi-hole and other services on VLAN 40
-6. **Validation** - Run [network tests](scripts/validation/network-tests.sh)
+6. **Validation** - Run [network tests](docs/runbooks/initial-setup-guide/9-Testing&Validation.md)
 
 ## 📚 Documentation
 
-- **[Network Runbook](docs/runbooks/network-runbook-v1.4.md)** - Comprehensive operational guide
-- **[Architecture Decisions](docs/architecture-decisions/)** - Design rationale and trade-offs
-- **[Troubleshooting Guide](docs/runbooks/troubleshooting-guide.md)** - Common issues and solutions
+- **[Network Runbook](docs/runbooks/initial-setup-guide)** - Comprehensive operational guide
+- **[Architecture Decisions](docs/architecture-decisions)** - Design rationale and trade-offs
+- **[Troubleshooting Guide](docs/runbooks/initial-setup-guide/Troubleshooting.md)** - Common issues and solutions
 
 ## 🔄 Configuration Management
 
